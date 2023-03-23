@@ -1,32 +1,34 @@
-const chessBoard = document.querySelector('.chess-board')
+function createBoard(size = 8) {
+  const board = document.createElement('div');
+  board.classList.add('board');
 
-function createBlockX() {
-  for (let i = 1; i <= 4; i++) {
-    const whiteBlock = document.createElement('div')
-    const blackBlock = document.createElement('div')
+  for (let i = 0; i < size; i++) {
+    const row = document.createElement('div');
+    row.classList.add('row');
 
-    whiteBlock.classList.add('whiteBlock')
-    blackBlock.classList.add('blackBlock')
+    for (let j = 0; j < size; j++) {
+      const square = document.createElement('div');
+      square.classList.add('square');
 
-    chessBoard.appendChild(whiteBlock)
-    chessBoard.appendChild(blackBlock)
+      if ((i + j) % 2 === 0) {
+        square.classList.add('white');
+      } else {
+        if (i < 3) {
+          square.innerHTML = `<div class="blackFig"></div>`
+        } else if (i >= size - 3) {
+          square.innerHTML = `<div class="whiteFig"></div>`
+        }
+        square.classList.add('green');
+      }
+
+      row.appendChild(square);
+    }
+
+    board.appendChild(row);
   }
+
+  return board;
 }
 
-function createBlockY() {
-  for (let i = 1; i <= 4; i++) {
-    const whiteBlock = document.createElement('div')
-    const blackBlock = document.createElement('div')
-
-    whiteBlock.classList.add('whiteBlock')
-    blackBlock.classList.add('blackBlock')
-
-    chessBoard.appendChild(blackBlock)
-    chessBoard.appendChild(whiteBlock)
-  }
-}
-
-for (let i = 0; i <= 3; i++) {
-  createBlockX()
-  createBlockY()
-}
+const chessboard = createBoard();
+document.body.appendChild(chessboard);
